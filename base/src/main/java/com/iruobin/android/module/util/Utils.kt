@@ -12,10 +12,12 @@ object Utils {
 
     const val symbol = "iRuoBin"
 
+    @JvmStatic
     fun init(context: Context?) {
         PrintLog.init(context)
         SharePrefs.init(context)
         Vibrator.init(context)
+        ScreenBrightness.init(context)
         ScreenDensity.init(context)
         Clipboard.init(context)
         PackageInfos.init(context)
@@ -24,6 +26,10 @@ object Utils {
      * 打印 Log 工具类（带堆栈信息）
      */
     val PrintLog = com.iruobin.android.module.util.PrintLog
+    /**
+     * 屏幕亮度工具类
+     */
+    val ScreenBrightness = com.iruobin.android.module.util.ScreenBrightness
     /**
      * 屏幕密度转换类（可以获取屏幕宽高）
      */

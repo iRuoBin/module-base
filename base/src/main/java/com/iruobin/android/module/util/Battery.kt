@@ -55,6 +55,7 @@ object Battery {
      * 充电状态 BatteryManager.EXTRA_PLUGGED（0 是未充电）
      * 等等
      */
+    @JvmStatic
     fun getIntInfo(key: String, intent: Intent?): Int {
         return intent?.getIntExtra(key, 0) ?: 0
     }
@@ -62,6 +63,7 @@ object Battery {
     /**
      * key 值在 BatteryManager 类
      */
+    @JvmStatic
     fun getStringInfo(key: String, intent: Intent?): String {
         return intent?.getStringExtra(key) ?: ""
     }
@@ -69,6 +71,7 @@ object Battery {
     /**
      * 当前电量
      */
+    @JvmStatic
     fun getCurrentQuantity(intent: Intent?): Int {
         return getIntInfo(BatteryManager.EXTRA_LEVEL, intent)
     }
@@ -76,6 +79,7 @@ object Battery {
     /**
      * 最大电量值
      */
+    @JvmStatic
     fun getMaxQuantity(intent: Intent?): Int {
         return getIntInfo(BatteryManager.EXTRA_SCALE, intent)
     }
@@ -83,6 +87,7 @@ object Battery {
     /**
      * 是否充电中
      */
+    @JvmStatic
     fun isCharging(intent: Intent?): Boolean {
         return getIntInfo(BatteryManager.EXTRA_PLUGGED, intent) != 0
     }

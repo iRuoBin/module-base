@@ -27,10 +27,12 @@ object PrintLog {
      */
     var showLength = 3600
 
+    @JvmStatic
     fun init(context: Context?) {
         isPrint = debugAble(context)
     }
 
+    @JvmStatic
     fun debugAble(context: Context?): Boolean {
         return (context?.applicationInfo?.flags ?: 0 and ApplicationInfo.FLAG_DEBUGGABLE) != 0
     }
@@ -64,30 +66,35 @@ object PrintLog {
         return "[${Thread.currentThread().id}] $methodName: $msg"
     }
 
+    @JvmStatic
     fun v(msg: String) {
         if (isPrint) {
             showLargeLog(msg) { tag, msg -> Log.v(tag, msg) }
         }
     }
 
+    @JvmStatic
     fun d(msg: String) {
         if (isPrint) {
             showLargeLog(msg) { tag, msg -> Log.d(tag, msg) }
         }
     }
 
+    @JvmStatic
     fun i(msg: String) {
         if (isPrint) {
             showLargeLog(msg) { tag, msg -> Log.i(tag, msg) }
         }
     }
 
+    @JvmStatic
     fun w(msg: String) {
         if (isPrint) {
             showLargeLog(msg) { tag, msg -> Log.w(tag, msg) }
         }
     }
 
+    @JvmStatic
     fun e(msg: String) {
         if (isPrint) {
             showLargeLog(msg) { tag, msg -> Log.e(tag, msg) }

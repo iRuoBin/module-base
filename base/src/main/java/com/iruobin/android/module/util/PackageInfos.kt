@@ -14,6 +14,7 @@ object PackageInfos {
 
     private var appContext: Context? = null
 
+    @JvmStatic
     fun init(context: Context?) {
         appContext = context?.applicationContext
     }
@@ -21,6 +22,7 @@ object PackageInfos {
     /**
      * app 是否存在
      */
+    @JvmStatic
     fun checkApkExist(packageName: String): Boolean {
         return if (TextUtils.isEmpty(packageName)) false else
             try {

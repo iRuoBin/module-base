@@ -15,6 +15,7 @@ object SharePrefs {
     private var defSharePrefsName = symbol
     private var appContext: Context? = null
 
+    @JvmStatic
     fun init(context: Context?) {
         appContext = context?.applicationContext
         defSharePrefsName = appContext?.packageName?.substringAfterLast('.') ?: symbol

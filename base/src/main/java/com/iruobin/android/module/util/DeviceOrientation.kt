@@ -54,6 +54,7 @@ object DeviceOrientation {
     /**
      * 当前是否是竖屏
      */
+    @JvmStatic
     fun isPortrait(context: Context): Boolean {
         return context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     }

@@ -17,6 +17,7 @@ object Vibrator {
     private var appContext: Context? = null
     private var vibrator: Vibrator? = null
 
+    @JvmStatic
     fun init(context: Context?) {
         appContext = context?.applicationContext
         vibrator = appContext?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -25,6 +26,7 @@ object Vibrator {
     /**
      * 单次震动（设置震动时常：单位 ms）
      */
+    @JvmStatic
     fun vibrate(milliseconds: Long) {
         vibrator?.vibrate(milliseconds)
     }
@@ -37,6 +39,7 @@ object Vibrator {
      * 循环震动需调用 cancel 才可取消
      * 如果是-1则表示不循环
      */
+    @JvmStatic
     fun vibrate(pattern: LongArray, repeat: Int) {
         vibrator?.vibrate(pattern, repeat)
     }
@@ -44,6 +47,7 @@ object Vibrator {
     /**
      * 不循环的模式震动
      */
+    @JvmStatic
     fun vibrate(vararg pattern: Long) {
         vibrator?.vibrate(pattern, -1)
     }
@@ -51,6 +55,7 @@ object Vibrator {
     /**
      * 取消震动
      */
+    @JvmStatic
     fun cancel() {
         vibrator?.cancel()
     }
