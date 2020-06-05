@@ -40,12 +40,23 @@ class MainActivity : AppCompatActivity() {
 
         tv.setOnClickListener{
 //            Clipboard.setText("button")
+
 //            Toast.makeText(this, Clipboard.getText(), Toast.LENGTH_SHORT).show()
+
             Location.getAMapLocation(AMapLocationListener { location ->
                 PrintLog.d(location.toString())
                 Toast.makeText(this, location.toString(), Toast.LENGTH_LONG).show()
             })
+
 //            PrintLog.d(PackageInfos.checkApkExist("com.tencent.mm").toString())
+
+//            Downloader.download("https://f.51240.com/file/wannianrili/pic.jpg",
+////            Downloader.download("http://fm.dl.126.net/mailmaster/updatemac/mailmaster-2.14.5.1269.dmg",
+//                object : Downloader.DownloadCompleteListener {
+//                    override fun downloadCompleted(localFilePath: String) {
+//                        PrintLog.w("download complete $localFilePath")
+//                    }
+//                })
         }
     }
 }

@@ -21,6 +21,7 @@ object Utils {
         Clipboard.init(context)
         PackageInfos.init(context)
         Location.init(context)
+        Downloader.init(context)
     }
     /**
      * 打印 Log 工具类（带堆栈信息）
@@ -62,4 +63,8 @@ object Utils {
      * 定位工具类
      */
     val Location = com.iruobin.android.module.util.Location
+    /**
+     * 下载器类
+     */
+    val Downloader = com.iruobin.android.module.util.Downloader
 }

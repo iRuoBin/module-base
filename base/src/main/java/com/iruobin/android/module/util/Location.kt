@@ -7,6 +7,7 @@ import com.amap.api.location.AMapLocationListener
 
 /**
  * 定位工具类
+ * 说明文档：https://lbs.amap.com/api/android-location-sdk/guide/android-location/getlocation
  * @author iRuoBin
  * @since 0.1
  */
