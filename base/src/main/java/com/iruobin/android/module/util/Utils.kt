@@ -1,7 +1,6 @@
 package com.iruobin.android.module.util
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 
 /**
  * 工具类汇总类
@@ -21,6 +20,7 @@ object Utils {
         ScreenDensity.init(context)
         Clipboard.init(context)
         PackageInfos.init(context)
+        Location.init(context)
     }
     /**
      * 打印 Log 工具类（带堆栈信息）
@@ -58,4 +58,8 @@ object Utils {
      * 包信息工具类
      */
     val PackageInfos = com.iruobin.android.module.util.PackageInfos
+    /**
+     * 定位工具类
+     */
+    val Location = com.iruobin.android.module.util.Location
 }

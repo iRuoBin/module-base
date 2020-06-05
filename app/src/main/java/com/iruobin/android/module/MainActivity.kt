@@ -1,12 +1,9 @@
 package com.iruobin.android.module
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.amap.api.location.AMapLocationListener
 import com.iruobin.android.module.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -44,7 +41,10 @@ class MainActivity : AppCompatActivity() {
         tv.setOnClickListener{
 //            Clipboard.setText("button")
 //            Toast.makeText(this, Clipboard.getText(), Toast.LENGTH_SHORT).show()
-
+            Location.getAMapLocation(AMapLocationListener { location ->
+                PrintLog.d(location.toString())
+                Toast.makeText(this, location.toString(), Toast.LENGTH_LONG).show()
+            })
 //            PrintLog.d(PackageInfos.checkApkExist("com.tencent.mm").toString())
         }
     }

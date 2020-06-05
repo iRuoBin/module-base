@@ -9,6 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+<!--        <meta-data-->
+<!--            android:name="com.amap.api.v2.apikey"-->
+<!--            android:value="f71aeb0e6dc2e338af82b99405b7da64"/>-->
+
+<!--        <service android:name="com.amap.api.location.APSService"/>-->
+
         <activity android:name=".MainActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
