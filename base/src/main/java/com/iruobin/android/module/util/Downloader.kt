@@ -6,7 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
-import java.io.File
+import android.util.Base64
+import java.io.*
+import java.net.URI
+
 
 /**
  * 下载工具类
@@ -28,7 +31,8 @@ object Downloader {
         //创建下载任务,downloadUrl就是下载链接
         val request = DownloadManager.Request(Uri.parse(downloadUrl))
         //指定下载路径和下载文件名
-        request.setDestinationInExternalPublicDir("/download/", downloadUrl.substringAfterLast("/"))
+        request.setDestinationInExternalFilesDir(appContext, "/download/", downloadUrl.substringAfterLast("/"))
+//        request.setDestinationInExternalPublicDir("/download/", downloadUrl.substringAfterLast("/"))
         //将下载任务加入下载队列，否则不会进行下载
         val taskId = downloadManager?.enqueue(request) ?: 0
         //注册广播接收者，监听下载状态
@@ -47,7 +51,7 @@ object Downloader {
     }
 
     interface DownloadCompleteListener {
-        fun downloadCompleted(localFilePath: String)
+        fun downloadCompleted(file: File?)
     }
 
     //检查下载状态 经测试 红米只能监听到下载完成事件
@@ -63,12 +67,53 @@ object Downloader {
                 DownloadManager.STATUS_RUNNING -> PrintLog.i(">>>正在下载")
                 DownloadManager.STATUS_SUCCESSFUL -> {
                     PrintLog.i(">>>下载完成")
-                    listener.downloadCompleted(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI)))
+                    listener.downloadCompleted(uriToFile(
+                        cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))))
                     appContext?.unregisterReceiver(completeReceiver)
                 }
                 DownloadManager.STATUS_FAILED -> PrintLog.i(">>>下载失败")
             }
         }
+    }
+
+    fun uriToFile(uriString: String): File? {
+        var file: File? = null
+        try {
+            file = File(URI(uriString))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            return file
+        }
+    }
+
+    //文件转换为 Base64
+    fun fileToBase64(file: File?): String {
+        var base64 = ""
+        if (file == null) return base64
+        var inputStream: InputStream? = null
+        try {
+            inputStream = FileInputStream(file)
+            val bytes = ByteArray(inputStream.available())
+            val length = inputStream.read(bytes)
+            base64 = Base64.encodeToString(bytes, 0, length, Base64.DEFAULT)
+        } catch (e: FileNotFoundException) {
+            // TODO Auto-generated catch block
+            e.printStackTrace()
+        } catch (e: IOException) {
+            // TODO Auto-generated catch block
+            e.printStackTrace()
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close()
+                }
+            } catch (e: IOException) {
+                // TODO Auto-generated catch block
+                e.printStackTrace()
+            }
+        }
+        return base64
     }
 
     //下载Apk后执行安装

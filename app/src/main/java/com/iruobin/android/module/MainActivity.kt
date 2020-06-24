@@ -1,11 +1,15 @@
 package com.iruobin.android.module
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.net.NetworkInfo
 import android.os.Bundle
-import android.widget.Toast
-import com.amap.api.location.AMapLocationListener
-import com.iruobin.android.module.util.*
+import androidx.appcompat.app.AppCompatActivity
+import com.iruobin.android.module.util.Downloader
+import com.iruobin.android.module.util.NetworkStatus
+import com.iruobin.android.module.util.PrintLog
+import com.iruobin.android.module.util.Utils
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,26 +41,34 @@ class MainActivity : AppCompatActivity() {
 //        })
 //        manager?.startListen()
 
+        lifecycle.addObserver(NetworkStatus.Observer(this, object : NetworkStatus.NetworkChangedCallback {
+            override fun onChanged(context: Context?, networkInfo: NetworkInfo?) {
+                PrintLog.i("isConnected: ${NetworkStatus.isConnected(networkInfo)}")
+                PrintLog.i("isWifi: ${NetworkStatus.isWifi(networkInfo)}")
+                PrintLog.i("networkIsValidated: ${NetworkStatus.networkIsValidated(context)}")
+            }
+        }))
+
 
         tv.setOnClickListener{
 //            Clipboard.setText("button")
 
 //            Toast.makeText(this, Clipboard.getText(), Toast.LENGTH_SHORT).show()
 
-            Location.getAMapLocation(AMapLocationListener { location ->
-                PrintLog.d(location.toString())
-                Toast.makeText(this, location.toString(), Toast.LENGTH_LONG).show()
-            })
+//            Location.getAMapLocation(AMapLocationListener { location ->
+//                PrintLog.d(location.toString())
+//                Toast.makeText(this, location.toString(), Toast.LENGTH_LONG).show()
+//            })
 
 //            PrintLog.d(PackageInfos.checkApkExist("com.tencent.mm").toString())
 
-//            Downloader.download("https://f.51240.com/file/wannianrili/pic.jpg",
-////            Downloader.download("http://fm.dl.126.net/mailmaster/updatemac/mailmaster-2.14.5.1269.dmg",
-//                object : Downloader.DownloadCompleteListener {
-//                    override fun downloadCompleted(localFilePath: String) {
-//                        PrintLog.w("download complete $localFilePath")
-//                    }
-//                })
+            Downloader.download("https://f.51240.com/file/wannianrili/pic.jpg",
+//            Downloader.download("http://fm.dl.126.net/mailmaster/updatemac/mailmaster-2.14.5.1269.dmg",
+                object : Downloader.DownloadCompleteListener {
+                    override fun downloadCompleted(file: File?) {
+                        PrintLog.w(Downloader.fileToBase64(file))
+                    }
+                })
         }
     }
 }
